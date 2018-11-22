@@ -95,4 +95,3 @@
   
   - name: start jenkins service
     command: systemctl start tomcat.service
-© 2018 GitHub, Inc.
