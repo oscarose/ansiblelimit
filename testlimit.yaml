@@ -10,7 +10,7 @@
       url_username: "{{ artifactory_user }}"
       url_password: "{{ artifactory_password }}"
       dest: "{{ install_dir }}"
-      owner: tomcat
+      owner: "{{ app_user }}"
       mode: 0755
     with_items:
      - jdk-8u191-linux-x64.tar.gz
@@ -24,7 +24,7 @@
     unarchive: src="{{ install_dir }}/jdk-8u191-linux-x64.tar.gz"
       dest="{{ install_dir }}"
       copy=no
-      owner=tomcat
+      owner="{{ app_user }}"
       mode=0755
     become: true
     become_method: sudo
@@ -34,7 +34,7 @@
     unarchive: src="{{ install_dir }}/apache-tomcat-8.0.53.tar.gz"
        dest="{{ install_dir }}"
        copy=no
-       owner=tomcat
+       owner="{{ app_user }}"
        mode=0755
     become: true
     become_method: sudo
@@ -85,7 +85,7 @@
       url_username: "{{ artifactory_user }}"
       url_password: "{{ artifactory_password }}"
       dest: "{{ jenkins_dir }}"
-      owner: tomcat
+      owner: "{{ app_user }}"
       mode: 0755
     with_items:
      - jenkins.war
