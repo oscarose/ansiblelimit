@@ -17,8 +17,8 @@
      - apache-tomcat-8.0.53.tar.gz
      - tomcat
     become: true
-    #become_method: sudo
-    become_user: "{{ app_user }}" 
+    become_method: sudo
+    become_user: root 
 
   - name: Unarchive Package
     unarchive: src="{{ install_dir }}/jdk-8u191-linux-x64.tar.gz"
@@ -27,8 +27,8 @@
       owner="{{ app_user }}"
       mode=0755
     become: true
-    #become_method: sudo
-    become_user: "{{ app_user }}"
+    become_method: sudo
+    become_user: root
 
   - name: Unarchive package
     unarchive: src="{{ install_dir }}/apache-tomcat-8.0.53.tar.gz"
@@ -37,8 +37,8 @@
        owner="{{ app_user }}"
        mode=0755
     become: true
-    #become_method: sudo
-    become_user: "{{ app_user }}"
+    become_method: sudo
+    become_user: root
  
   - name: Make Java available for system
     command: "{{ item }}"
@@ -90,8 +90,11 @@
     with_items:
      - jenkins.war
     become: true
-    #become_method: sudo
-    become_user: "{{ app_user }}"
+    become_method: sudo
+    become_user: root
+    
+  - name: Chown all to tomcat
+    command chown -R tomcat. /opt/*
   
   - name: start jenkins service
     command: systemctl start tomcat.service
